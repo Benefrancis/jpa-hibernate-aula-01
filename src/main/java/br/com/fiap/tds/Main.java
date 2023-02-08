@@ -7,6 +7,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.swing.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
@@ -14,13 +15,15 @@ public class Main {
         String nome = JOptionPane.showInputDialog("Nome do produto");
         String descricao = JOptionPane.showInputDialog("Descricao do produto");
         BigDecimal preco = new BigDecimal(JOptionPane.showInputDialog("Preço do produto"));
+        LocalDate fabricacao = LocalDate.now();
+
 
         var produto = new Produto();
 
-        produto.setNome(nome).setDescricao(descricao).setPreco(preco);
+        produto.setNome(nome).setDescricao(descricao).setPreco(preco).setFabricacao(fabricacao);
 
 
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("fiap_aula_1");
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("oracle-casa");
 
         EntityManager entityManager = factory.createEntityManager();
 

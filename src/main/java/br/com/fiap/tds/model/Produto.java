@@ -2,14 +2,15 @@ package br.com.fiap.tds.model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 
 @Entity
 @Table(name = "produtos")
 public class Produto {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_PRODUTOS")
+    @SequenceGenerator(name = "SEQ_PRODUTOS", sequenceName = "SEQ_PRODUTOS", allocationSize = 1, initialValue = 1)
     private Long id;
 
     private String nome;
@@ -18,14 +19,17 @@ public class Produto {
 
     private BigDecimal preco;
 
+    private LocalDate fabricacao;
+
     public Produto() {
     }
 
-    public Produto(Long id, String nome, String descricao, BigDecimal preco) {
+    public Produto(Long id, String nome, String descricao, BigDecimal preco, LocalDate fabricacao) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
+        this.fabricacao = fabricacao;
     }
 
     public Long getId() {
@@ -64,6 +68,16 @@ public class Produto {
         return this;
     }
 
+
+    public LocalDate getFabricacao() {
+        return fabricacao;
+    }
+
+    public Produto setFabricacao(LocalDate fabricacao) {
+        this.fabricacao = fabricacao;
+        return this;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Produto{");
@@ -71,6 +85,7 @@ public class Produto {
         sb.append(", nome='").append(nome).append('\'');
         sb.append(", descricao='").append(descricao).append('\'');
         sb.append(", preco=").append(preco);
+        sb.append(", fabricacao=").append(fabricacao);
         sb.append('}');
         return sb.toString();
     }
